@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Cultivos de América Central</title>   
+
+	<!-- Hoja de estilos CSS de Leaflet -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>	
+	<!-- Biblioteca JS de Leaflet -->
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>	
+	<!-- Complemento Leaflet-providers -->
+	<script src="js/leaflet-providers.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+		integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous">
+	</script>
+
+    <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>	
+    <script src="js/leaflet.pattern-src.js"></script>	
+	
+	<!--<script src="js/leaflet.groupedlayercontrol.js"></script>-->
+	<!--<link rel="stylesheet" href="css/leaflet.groupedlayercontrol.css"/>-->
+
+	<!-- Hoja de estilos CSS adicionales -->
+	<link rel="stylesheet" href="css/estilos.css"/>			
+</head>
+<body onload="myFunction()">
+	<!-- Elemento div para contener el mapa -->
+	<h1>Principales productos agrícolas cultivados en América Central</h1>
+	<div class="row">
+		<div class="column"> 
+			<h2>Visor de cultivos en mapa de calor</h2>
+			<div id = "panel">
+			<label>Seleccione un país:</label>
+			<select id="estilo" onchange="estiloSelect()">
+				<option value="Panama" >Panamá</option>
+				<option value="Costa Rica">Costa Rica</option>
+				<option value="Nicaragua" >Nicaragua</option>
+				<option value="Honduras" >Honduras</option>
+				<option value="El Salvador" >El Salvador</option>
+				<option value="Guatemala" >Guatemala</option>
+				<option value="TODOS" >Todos</option>
+			</select>
+			</div>
+			<center>
+			<div id="map2id"></div>
+			<h5>Opacidad de la capa de precipitación: <span id="span-opacity">0.5</span></h5>
+			<input type='range' id='sld-opacity' min='0' max='1' step='0.1' value='0.5' onchange='updateOpacity();'>
+			</center>
+		</div>
+		<div class="column">
+			<h2>Visor de cultivos por municipio en ha aproximadas</h2>
+			<center>
+			<div id="mapid"></div>
+			</center>
+		</div>
+	</div>
+	<div class="title"">
+		<h2>Descripción de cultivos</h2>
+	</div>
+	<div class="row">
+		<div class="column">
+			<h3>Algodón</h3>
+				<p>El cultivo y aprovechamiento del algodón presenta cifras significativas para la región centroamericana. Ya desde 1940  el  algodón  se  consumía  básicamente  en  el  ámbito  regional. Se le exportaba ocasionalmente, cuando los precios eran particularmente favorables. Partiendo de una base de producción casi insignificante a fines de la década de 1940, en sólo un decenio su crecimiento había convertido a Nicaragua en un proveedor importante del mercado internacional y el principal cultivador de algodón de Centroamérica. 
+					<center>
+						<img src="https://imgcdn.larepublica.co/i/480/2015/07/23152247/algodon0815-1000_0.jpg" alt="ALGODÖN" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Banano</h3>
+				<p>En 2016 el principal exportador de banano fresco o seco en Centroamérica fue Costa Rica con $997 millones, seguido de Guatemala, con $777 millones, Honduras, con $510 millones, Panamá con $92 millones, Nicaragua con $17 millones y El Salvador, con $2 millones.
+					<center>
+						<img src="https://img.vixdata.io/pd/webp-large/es/sites/default/files/imj/vivirsalud/1/100838175.jpg" alt="BANANO" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Café</h3>
+				<p>El café fue traído a América en 1720 por los europeos y es considerado como una actividad económica fundacional en la historia de Centroamérica. Esta mercancía ha desempeñado un papel muy importante en la evolución política, monetaria y social del continente. Los cafés que se producen allí son conocidos tanto por sus cuerpos como por sus aromas.
+					<center>
+						<img src="https://cruzeiro.cl/wp-content/uploads/2018/06/cafe_grano.jpg" alt="CAFE" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Frijol</h3>
+				<p>En el caso del frijol, los mejores rendimientos los tiene Guatemala con 11.47 quintales por manzana, y le siguen El Salvador (11.33) y Nicaragua (8.95 quintales).
+					<center>
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-9ButhI_F5oAH80ToXxkYQMiFDiBXLBhmngLKEulUEMhz_rvEcQ&s.jpg" alt="FRIJOL" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Maíz</h3>
+				<p>En el caso particular de la producción de maíz en el área, los mejores rendimientos de maíz en la región los presenta Costa Rica, con 48.39 quintales por manzana, y es seguido por Guatemala (44.06 quintales por manzana) y en tercer lugar está Nicaragua (32.31 quintales).
+					<center>
+						<img src="http://greenarea.me/wp-content/uploads/2016/01/maiz14agosto1.jpg" alt="MAIZ" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Tabaco</h3>
+				<p>En los primeros diez meses de 2017 las exportaciones de tabaco sumaron $188 millones, y la gremial de productores nicaragüenses estima que al cierre de año habrán superado la meta anual de $218 millones. Los $188 millones generados por la exportación de tabaco entre enero y octubre de este año representan el 85% de la meta planteada por la industria tabacalera para este año.
+					<center>
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhy2mzjT46OWaegrtURFqePToQJ-h4HmFc8fgTyZilu9r87Q0g&s.jpg" alt="TABACO" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Fuente de datos</h3>
+				<p>Los datos son producto de una serie de entradas tanto de senrsores remotos como de datos en campo reportados por instituciones del contexto agrario en un Modelo de Asignación de Producción Espacial (SPAM por sus siglas en inglés), desarrollado por el Instituto Internacional de Investigación sobre Políticas Alimentarias (IFPRI por sus siglas en inglés).<br><br>International Food Policy Research Institute, 2019, “Global Spatially-Disaggregated Crop Production Statistics Data for 2010 Version 1.1”, <a href= "https://doi.org/10.7910/DVN/PRFF8V" target="_blank">https://doi.org/10.7910/DVN/PRFF8V</a>, Harvard Dataverse, V3
+					<center>
+						<img src="https://www.ifpri.org/sites/all/themes/custom/serenity/logo.png" alt="SOURCE" height="100" width="200" border="0">
+					</center>
+				</p>
+		</div>
+		<div class="column">
+			<h3>Arroz</h3>
+				<p>Entre junio de 2018 y el mismo mes de 2019, el precio promedio de las importaciones centroamericanas de arroz han reportado una tendencia a la baja, al pasar desde $0,43 a $0,34 por kilo.
+					<center>
+						<img src="https://ccafs.cgiar.org/sites/default/files/styles/large/public/blog/pictures/4387545872_721a183b0e_z.jpg?itok=T0lFjEur.jpg" alt="ARROZ" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Cacao</h3>
+				<p>El Comité del Cacao de Centroamérica y República Dominicana, conocido como SíCACAO, anunció este fin de semana que promoverán acciones para el fomento del cacao climáticamente inteligente en esta región. Además, analizarán las causas de la baja productividad del grano en Centroamérica, y establecerán una agenda común centroamericana frente al cadmio en el cacao, según el plan de trabajo aprobado para el 2019 por SíCACO y divulgado en Managua por el organismo belga Rikolto. Productores en El Salvador, Honduras y Guatemala, dispondrán de una planta procesadora, asistencia técnica y una red de distribución global. Los fondos provenientes de la Organización Internacional Italo-Latinoamericana (IILA) y la Agencia Italiana de Cooperación para el Desarrollo (AICS), son parte del proyecto denominado Revitalización de la cadena del cacao de calidad en Centroamérica y el Caribe
+					<center>
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3lccQ6eVbQyhEzrMoRyw9u6zAZ1V9CwqonCnv5Ia_Y94buOlpAA&s.jpg" alt="CACAO" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Caña</h3>
+				<p>Del 22 al 25 de agosto del 2019 empresas del sector se reunirán en San Pedro Sula para participar en ruedas de negocio y discutir temas relevantes para el sector. El congreso de Técnicos Azucareros de Centroamérica se llevará a cabo en el Centro de Convenciones del hotel Copantl, en San Pedro Sula. Se desarrollarán ruedas de negocio y expertos internacionales impartirán charlas sobre temas de interés para el sector, como el efecto del cambio climático en la producción azucarera, uso de la tecnología, costos de producción, entre otros.
+					<center>
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtCX4BQhRSOrVElgwDqOqTb_cmUCLlto6hPmmAQ5vq_MBIlIEt&s.jpg" alt="CAÑA" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Frutales</h3>
+				<p>Los productos frutales tienen una fuerte influencia en toda la región centroamericana. Los datos de producción globales colocan a Costa Rica y El Salvador a la cabeza por unidad de manzanas, muy por encima de los demas países del área, en donde las regiones productivas enfrentan dificultades en cuanto a la irrigación de la tierra, sobretodo durante los meses mas secos de año, presentandose intervalos productivos que inciden en los datos de productividad relativa.
+					<center>
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROqFygyO5WpPszLCApVxwRLfgs0jVk9ZxlQ3P3SqDN6AgwgOZW&s.jpg" alt="FRUTALES" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Sorgo</h3>
+				<p>Según los datos de Cepal, en Centroamérica, Nicaragua es el país con mejor rendimiento de sorgo y también en la producción de arroz. En la región del Itsmo, Nicaragua encabeza el rendimiento en la producción de sorgo, con 29.34 quintales por manzana. En 2010 este país logró producir un millón 670 mil quintales de sorgo. La Unión de Productores Agropecuarios de Nicaragua, Upanic, indica que los últimos años los rendimientos en la producción de sorgo en Nicaragua han mejorado sustancialmente. Actualmente Nicaragua presenta rendimientos inclusive de 70, 80 quintales por manzana. La producción de sorgo tiene como “fuerte” competencia la producción de maní y caña de azúcar.
+					<center>
+						<img src="https://sites.google.com/site/cienciavegetalyanimal/_/rsrc/1326150980110/cultivos-anuales/sorgo/sorgo%203.jpg?height=300&width=100%25.jpg" alt="SORGO" height="100" width="200" border="0">
+					</center>
+				</p>
+			<h3>Conclusiones generales</h3>
+				<p>A los países del Istmo, como a la mayoría del resto de países latinoamericanos, se les considera ineficientes en producción de cultivos alimenticios. Centroamérica no produce la cantidad suficiente de alimentos para nutrir a su población, por lo que anualmente ha tenido que importar distintas especies de granos o productos alimenticios elaborados o semielaborados. La baja producción se ha atribuido en gran parte a sistemas agrícolas poco eficientes. La mayoría de los alimentos básicos del área provienen de agricultores pequeños que usan sistemas de cultivo tradicionales, que consisten en monocultivos y más frecuentemente cultivos mixtos o intercalados y cultivos múltiples. El uso de estos sistemas de producción data de tiempos anteriores a la Conquista y probablemente se remontan a milenios atrás. Es conocido que los Mayas y los Incas cultivaban su maíz y frijoles juntos desde tiempos muy remotos y esta práctica es todavía predominante entre los pequeños productores de México, Centroamérica y los Andes. Entre los pequeños agricultores centroamericanos son muy comunes los cultivos mixtos de maíz con frijol, yuca, camote, sorgo, ajonjolí, cucurbitas, haba y hortalizas. 
+					<center>
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrbo3EBBsOoIBdEfoHr3HTUUnjq6AvzuJTSwtTPD1Z-2NYP3MdhA&s.jpg" alt="CONCLUSIONES" height="100" width="200" border="0">
+					</center>
+				</p>
+		</div>
+	</div>
+
+	<!-- Código principal en JS -->
+	<script src="js/scrips.js"></script>	
+</body>
+</html>
